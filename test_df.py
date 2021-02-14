@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 import matplotlib.pyplot as plt
 from pandas import DataFrame
-from sklearn.ensemble import RandomForestClassifier
+
 
 
 
