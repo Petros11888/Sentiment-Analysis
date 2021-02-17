@@ -24,8 +24,8 @@ while i <= 1:
     filtered_words = [word for word in token if word not in stopwords.words('english')]
     lemmatized = [[lmtzr.lemmatize(word) for word in word_tokenize(s)]
               for s in filtered_words]
-    sentences.append(filtered_words)
-    length.append(len(filtered_words))                
+    sentences.append(lemmatized)
+    length.append(len(lemmatized))                
     i += 1
   
   
