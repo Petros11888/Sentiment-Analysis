@@ -24,14 +24,13 @@ lmtzr = WordNetLemmatizer()
 for i in range(0,len(df.index)):
     wrd = df.iloc[i,1]
     t1 = re.sub(r'http\S+', '', wrd)
-    token = nltk.word_tokenize(t1)
+    t2 = re.sub(r'@\S+', '', t1)
+    token = nltk.word_tokenize(t2)
     token = [word.lower() for word in token if word.isalpha()]
     filtered_words = [word for word in token if word not in stopwords.words('english')]
     for s in filtered_words:
         lmtzr.lemmatize(s)
     sentences.append(filtered_words)
-    df.iloc[i,1]
- 
     
     together.append(separator.join(filtered_words))
 
@@ -54,7 +53,7 @@ X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
 
 
-classifier = KNeighborsClassifier(n_neighbors=30)
+classifier = KNeighborsClassifier(n_neighbors=20)
 classifier.fit(X_train, y_train)
 
 y_pred = classifier.predict(X_test)
