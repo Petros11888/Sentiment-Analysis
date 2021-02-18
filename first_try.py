@@ -25,14 +25,11 @@ for i in range(0,len(df.index)):
     wrd = df.iloc[i,1]
     t1 = re.sub(r'http\S+', '', wrd)
     t2 = re.sub(r'@\S+', '', t1)
-    token = nltk.word_tokenize(t2)
-    token = [word.lower() for word in token if word.isalpha()]
-    filtered_words = [word for word in token if word not in stopwords.words('english')]
-    for s in filtered_words:
-        lmtzr.lemmatize(s)
-    sentences.append(filtered_words)
-    
-    together.append(separator.join(filtered_words))
+    token_list = nltk.word_tokenize(t2)
+    low_token_list = [word.lower() for word in token_list if word.isalpha()]
+    filtered_words = [word for word in low_token_list if word not in stopwords.words('english')]
+    lemmatized = [lmtzr.lemmatize(s) for s in filtered_words]     
+    together.append(separator.join(lemmatized))
 
 vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(together)
@@ -53,7 +50,7 @@ X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
 
 
-classifier = KNeighborsClassifier(n_neighbors=20)
+classifier = KNeighborsClassifier(n_neighbors=32)
 classifier.fit(X_train, y_train)
 
 y_pred = classifier.predict(X_test)
