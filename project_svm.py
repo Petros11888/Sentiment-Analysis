@@ -15,7 +15,6 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 df = pd.read_csv("all_data.csv", )
 
 sentences = df.iloc[:, 1].values
-length = []
 together=[]
 separator = ' '
 stop_words = set(stopwords.words('english'))
