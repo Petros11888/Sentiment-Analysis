@@ -2,7 +2,7 @@ import nltk
 import re
 import numpy as np
 import pandas as pd 
-from sklearn.svm import SVC
+from sklearn.naive_bayes import MultinomialNB
 from pandas import DataFrame
 from nltk.corpus import stopwords 
 from sklearn.model_selection import train_test_split
@@ -31,6 +31,7 @@ for i in range(0,len(sentences)):
     token_list = [word.lower() for word in token_list if word.isalpha()]
     token_list = [word for word in token_list if word not in stopwords.words('english')]
     token_list = [lmtzr.lemmatize(token) for token in token_list]  
+    #tokens become text again  
     together.append(separator.join(token_list))
 
 vectorizer = TfidfVectorizer()

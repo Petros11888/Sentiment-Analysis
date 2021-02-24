@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn.svm import SVC
 from pandas import DataFrame
 from nltk.corpus import stopwords 
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -15,7 +16,6 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 df = pd.read_csv("all_data.csv", )
 
 sentences = df.iloc[:, 1].values
-length = []
 together=[]
 separator = ' '
 stop_words = set(stopwords.words('english'))
@@ -31,10 +31,11 @@ for i in range(0,len(sentences)):
     token_list = nltk.word_tokenize(t)
     token_list = [word.lower() for word in token_list if word.isalpha()]
     token_list = [word for word in token_list if word not in stopwords.words('english')]
-    token_list = [lmtzr.lemmatize(token) for token in token_list]  
+    token_list = [lmtzr.lemmatize(token) for token in token_list]
+    #tokens become text again  
     together.append(separator.join(token_list))
 
-vectorizer = TfidfVectorizer(max_features=2500, min_df=7, max_df=0.8)
+vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(together)
 y = df.iloc[:, 2].values
 
